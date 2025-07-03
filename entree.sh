@@ -9,21 +9,23 @@
 #    5/10 [2025-02-12 13:17:18] frelon beige 29306 K=2 Formidable
 #
 # ou news aléatoires de la forme :
-
 #  1/99 [2025-02-11 11:10:06]  32695 fiabilité=1/5 source:[Agence France-Presse] info:[ Le tigre  décongèle une pomme pour le diner. Curieux, non ? ]
 #  2/99 [2025-02-11 11:10:08]  14110 fiabilité=4/5 source:[Le Gorafi] info: [ J'ai un scoop : la girafe espère des cornichons. C'est normal. ]
 
 FMT=${BOUCLE_FORMAT:-SIMPLE}
 
-echo "entree.sh ;  variable BOUCLE_FORMAT = $BOUCLE_FORMAT"
+echo "entree.sh ;  variable BOUCLE_FORMAT = $FMT"
 echo "   valeur 'SIMPLE' pour des logs simples "
 echo "   valeur 'NIOUZE' pour des logs de type news "
+echo "   PATH=$PATH"
+
+ls -l /tmp
 
 if [[ "$FMT" == "SIMPLE" ]]; then
-   /tmp/boucle.sh
+   bash /tmp/boucle.sh
 else
    if [[ "$FMT" == "NIOUZE" ]]; then
-      /tmp/niouze.sh
+      bash /tmp/niouze.sh
    else
       echo "valeur incorrecte pour BOUCLE_FORMAT"
    fi

@@ -1,4 +1,15 @@
 #!/bin/bash
+
+# Emission de messages au format SIMPLE
+
+# Structure :
+#   numero de ligne émise
+#   nombre max de lignes
+#   date et heure AAAA-MM-JJ HH:MM:SS
+#   nombre entier aléatoire
+#   nombre entier entre 0 et 5
+#   message texte
+
 END=${BOUCLE_MAX:-10}
 DELAI_MINIMUM=${BOUCLE_DELAI:-1}
 OUTPUT=${BOUCLE_LOGFILENAME:-baratin.log}

@@ -1,0 +1,7 @@
+services:
+  boucleur:
+    image: boucle:latest
+    container_name: boucleur
+    environment:
+      - BOUCLE_MAX=9
+      - BOUCLE_FORMAT=NIOUZE

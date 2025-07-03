@@ -1,27 +1,47 @@
 # boucle
-A simple docker image generating random logs
 
+A simple docker image generating random logs
 
 ## Parameters
 
 The script can be configured with environment variables :
 
-`BOUCLE_MAX`  : number of lines generated before the container exit  (default = 10)
+`BOUCLE_MAX` : number of lines generated before the container exit (default = 10)
 
-`BOUCLE_DELAI` : minimal delay (in seconds) between each line emission  (default = 1)
+`BOUCLE_DELAI` : minimal delay (in seconds) between each line emission (default = 1)
 
-`BOUCLE_LOGFILENAME` : file name where the output is written  (default = /baratin.log)
+`BOUCLE_LOGFILENAME` : file name where the output is written (default = /baratin.log)
 
-`BOUCLE_FORMAT` :  output format 'SIMPLE' or  'NIOUZE'  (default = SIMPLE)
+`BOUCLE_FORMAT` : output format 'SIMPLE' or 'NIOUZE' (default = SIMPLE)
+
+### Building Docker image
+
+```
+docker build -t boucle:v0.1
+```
+
+or using script
+
+```
+build.sh  <<tag>>
+```
 
 ### Usage
+
 ```
 docker run boucle:v0.1
+```
+
+ou bien
+
+```
+docker compose -f docker-compose.yaml up
 ```
 
 ### Output
 
 SIMPLE FORMAT :
+
 ```
 **** boucle.sh **** boucle de 1 à 10, Delai=1, logfile=baratin.log
 1/10 : date=Fri Jan 31 10:14:56 AM CET 2025 : random=21667 : K=1 : Message=Parfait
@@ -34,9 +54,15 @@ SIMPLE FORMAT :
 ```
 
 NIOUZE FORMAT :
+
 ```
 #  1/99 [2025-02-11 11:10:06]  32695 fiabilité=1/5 source:[Agence France-Presse] info:[ Le tigre  décongèle une pomme pour le diner. Curieux, non ? ]
 #  2/99 [2025-02-11 11:10:08]  14110 fiabilité=4/5 source:[Le Gorafi] info: [ J'ai un scoop : la girafe espère des cornichons. C'est normal. ]
 
 ```
 
+Grok pattern du format NIOUZE pour logstash :
+
+```
+# %{NUMBER:numero:int}/%{NUMBER:maxi:int} \[%{DATA:@timestamp:timestamp}\]  %{WORD:random:int} %{WORD:klef:int} fiabilité=%{WORD:fiabilite:int}\/5 source:\[%{GREEDYDATA:source}\] info:\[ %{GREEDYDATA:niouze}\ ]
+```
